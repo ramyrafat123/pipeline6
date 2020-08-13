@@ -5,9 +5,7 @@ pipeline{
         stage('Compile Stage'){
             steps {
                 withMaven(maven : 'maven-3'){
-                    def mvnHome = tool name: 'maven-3' , type:'maven'
-                    def mvnCMD ="${mvnHome}/bin/mvn"
-                    sh "${mvnCMD} clean package"
+                    sh 'mvn clean compile'
                 }
 
             }
@@ -15,22 +13,17 @@ pipeline{
         stage('Testing Stage'){
             steps{
                 withMaven(maven : 'maven-3'){
-                    def mvnHome = tool name: 'maven-3' , type:'maven'
-                    def mvnCMD ="${mvnHome}/bin/mvn"
-                    sh "${mvnCMD} test"
+                    sh 'mvn test'
                 }
             }
         }
         stage('Deploy Stage'){
             steps{
                 withMaven(maven : 'maven-3'){
-                    def mvnHome = tool name: 'maven-3' , type:'maven'
-                    def mvnCMD ="${mvnHome}/bin/mvn"
-                    sh "${mvnCMD} deploy"
+                    sh 'mvn deploy'
                 }
             }
         }
     }
 }
-
 
